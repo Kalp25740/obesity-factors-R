@@ -1,0 +1,1076 @@
+---
+title: "Project"
+author: "Kalp"
+date: "2024-04-10"
+output: html_document
+---
+```{r}
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(readxl)
+obesity.data <- read_excel("~/Downloads/Obesity.transformed_dataset.xlsx")
+View(obesity.data)
+```
+
+
+```{r}
+obesity.data
+```
+
+```{r}
+# Method 1: Using is.na() function
+missing_values = is.na(obesity.data)
+# Summarize missing values by column
+colSums(missing_values)
+```
+
+```{r}
+# Assuming your dataset is named obesity_data
+summary(obesity.data)
+```
+ 
+```{r}
+
+#Count the frequency of each gender category
+gender_counts = table(obesity.data$Gender)
+
+#Create a bar plot
+barplot(gender_counts, 
+        main = "Distribution of Gender", # Title of the plot
+        xlab = "Gender",                 # Label for x-axis
+        ylab = "Frequency",              # Label for y-axis
+        col = "skyblue",                 # Color of bars
+        ylim = c(0, max(gender_counts) * 1.1), # Set ylim to leave space above the tallest bar
+        border = NA)                     # Remove border around bars
+
+```
+
+```{r}
+# Create a histogram for age
+hist(obesity.data$Age,
+     main = "Distribution of Age",    # Title of the plot
+     xlab = "Age",                    # Label for x-axis
+     ylab = "Frequency",              # Label for y-axis
+     col = "skyblue",                 # Color of bars
+     border = "black")                # Color of border around bars
+
+```
+
+```{r}
+# Create a histogram for age
+hist(obesity.data$Height,
+     main = "Distribution of Height",    # Title of the plot
+     xlab = "Age",                    # Label for x-axis
+     ylab = "Frequency",              # Label for y-axis
+     col = "skyblue",                 # Color of bars
+     border = "black")                # Color of border around bars
+
+```
+
+
+```{r}
+# Create a histogram for age
+hist(obesity.data$Weight,
+     main = "Distribution of Weight",    # Title of the plot
+     xlab = "Weight",                    # Label for x-axis
+     ylab = "Frequency",              # Label for y-axis
+     col = "skyblue",                 # Color of bars
+     border = "black")                # Color of border around bars
+
+```
+
+```{r}
+par(mfrow = c(2, 2)) # Set up a 2x2 grid for plots
+
+# Bar plot for family_history_with_overweight
+barplot(table(obesity.data$family_history_with_overweight),
+        main = "Family History with Overweight",
+        xlab = "Family History",
+        ylab = "Frequency",
+        col = "green",
+        border = "black")
+
+# Box plot for FAVC
+
+barplot(table(obesity.data$FAVC),
+        main = "Consumption of High Caloric food",
+        xlab = "FAVC",
+        ylab = "Frequency",
+        col = "blue",
+        border = "black")
+
+
+barplot(table(obesity.data$SMOKE),
+        main = "SMOKE",
+        xlab = "SMOKE",
+        ylab = "Frequency",
+        col = "purple",
+        border = "black")
+
+barplot(table(obesity.data$CAEC),
+        main = "Consumption of food between meals",
+        xlab = "CAEC",
+        ylab = "Frequency",
+        col = "orange",
+        border = "black")
+```
+
+```{r}
+
+# Bar plot for SCC
+SCC =  table(obesity.data$SCC)
+barplot(SCC,
+        main = "Calories consumption monitoring",
+        xlab = "SCC",
+        ylab = "Frequency",
+        col = "darkgreen",
+        border = "black")
+
+
+# Box plot for CALC
+
+CALC = table(obesity.data$CALC)
+barplot(CALC,  ylab = "Frequency", xlab = "CALC",main = "CALC",col = "blue",  border = "black")
+
+```
+
+
+
+```{r}
+MTRANS = table (obesity.data$MTRANS)
+barplot(MTRANS,
+        main = "Mode of Transport",
+        xlab = "MTRANS",
+        ylab = "Frequency",
+        col = "purple",
+        border = "black")
+```
+
+
+```{r}
+barplot(table(obesity.data$NObeyesdad),
+        main = "Obesity level",
+        xlab = "NObeyesdad",
+        ylab = "Frequency",
+        col = "orange",
+        border = "black",
+        width = 5)
+```
+
+```{r}
+# Create a histogram for FCVC
+barplot(table(obesity.data$FCVC),
+     main = "Distribution of Consumption of vegetable",    # Title of the plot
+     xlab = "FCVC",                    # Label for x-axis
+     ylab = "Frequency",              # Label for y-axis
+     col = "skyblue",                 # Color of bars
+     border = "black")
+```
+
+```{r}
+# Create a histogram for NCP
+barplot(table(obesity.data$NCP),
+     main = "number of main meals",    # Title of the plot
+     xlab = "NCP",                    # Label for x-axis
+     ylab = "Frequency",              # Label for y-axis
+     col = "skyblue",                 # Color of bars
+     border = "black")
+```
+
+```{r}
+# Create a histogram for CH2O
+barplot(table(obesity.data$CH2O),
+     main = "Distribution of consumption of water",    # Title of the plot
+     xlab = "CH2O",                    # Label for x-axis
+     ylab = "Frequency",              # Label for y-axis
+     col = "skyblue",                 # Color of bars
+     border = "black")
+```
+```{r}
+# Create a histogram for FAF
+barplot(table(obesity.data$FAF),
+     main = "Physical activity frequency",    # Title of the plot
+     xlab = "FAF",                    # Label for x-axis
+     ylab = "Frequency",              # Label for y-axis
+     col = "skyblue",                 # Color of bars
+     border = "black")
+```
+
+```{r}
+# Create a histogram for TUE
+barplot(table(obesity.data$TUE),
+     main = "Time using technology devices",    # Title of the plot
+     xlab = "TUE",                    # Label for x-axis
+     ylab = "Frequency",              # Label for y-axis
+     col = "skyblue",                 # Color of bars
+     border = "black")
+```
+
+```{r}
+library(ggplot2)
+
+# Explore the categorical variables
+categorical_vars <- c("Gender", "family_history_with_overweight", "FAVC","CAEC",  "SMOKE", "SCC", "CALC", "MTRANS", "NObeyesdad")
+for (var in categorical_vars) {
+  print(ggplot(obesity.data, aes(x = !!sym(var))) + geom_bar() + labs(title = var))
+}
+
+
+
+# Convert categorical variables to factors
+obesity.data$Gender <- as.factor(obesity.data$Gender)
+obesity.data$family_history_with_overweight <- as.factor(obesity.data$family_history_with_overweight)
+obesity.data$FAVC <- as.factor(obesity.data$FAVC)
+obesity.data$CAEC <- as.factor(obesity.data$CAEC)
+obesity.data$SMOKE <- as.factor(obesity.data$SMOKE)
+obesity.data$SCC <- as.factor(obesity.data$SCC)
+obesity.data$CALC <- as.factor(obesity.data$CALC)
+obesity.data$MTRANS <- as.factor(obesity.data$MTRANS)
+obesity.data$NObeyesdad <- as.factor(obesity.data$NObeyesdad)
+
+```
+
+
+
+```{r}
+# Barplot of obesity levels
+ggplot(obesity.data, aes(x = NObeyesdad)) +
+  geom_bar() +
+  labs(x = "Obesity Level", y = "Count", title = "Distribution of Obesity Levels")
+
+```
+
+
+
+
+```{r}
+# Barplots of categorical variables by obesity level
+categorical_vars <- c("Gender", "family_history_with_overweight", "FAVC","FCVC", "NCP","CAEC", "SMOKE","CH2O", "SCC", "FAF","TUE", "CALC", "MTRANS")
+
+for (var in categorical_vars) {
+  # Calculate proportions for each category within each level of obesity
+  prop_table <- table(obesity.data[[var]], obesity.data$NObeyesdad) / rowSums(table(obesity.data[[var]], obesity.data$NObeyesdad))
+  
+  # Convert the table to a data frame
+  prop_df <- as.data.frame(prop_table)
+  
+  # Rename columns
+  names(prop_df) <- c(var, "NObeyesdad", "Proportion")
+  
+  # Plot proportions
+  plot <- ggplot(prop_df, aes(x = prop_df[[var]], y = Proportion, fill = NObeyesdad)) +
+    geom_bar(stat = "identity", position = "dodge") +
+    labs(x = var, y = "Proportion", title = paste("Proportion of", var, "by Obesity Level"))
+  
+  print(plot)
+}
+
+```
+
+```{r}
+# Boxplots of numerical variables by obesity level
+numeric_vars <- c("Age", "Height", "Weight", "FCVC", "NCP", "CH2O", "FAF", "TUE")
+for (var in numeric_vars) {
+  plot <- ggplot(obesity.data, aes(x = NObeyesdad, y = obesity.data[[var]])) +
+    geom_boxplot() +
+    labs(x = "Obesity Level", y = var, title = paste("Boxplot of", var, "by Obesity Level"))
+  print(plot)
+}
+```
+
+
+
+```{r}
+install.packages("readr")
+library(readr)
+install.packages("tidyverse")
+library(tidyverse)
+
+```
+
+#stacked bar plot for visualization of association between independent and dependent variable.
+```{r}
+# Load necessary libraries
+library(ggplot2)
+
+# List of categorical independent variables
+categorical_vars <- c("family_history_with_overweight", "FAVC", "FCVC", "NCP", "CAEC",
+                      "SMOKE", "CH2O", "SCC", "FAF", "TUE", "CALC", "MTRANS")
+
+# Create stacked bar charts for each categorical variable
+for (var in categorical_vars) {
+  # Create a data frame for plotting
+  plot_data <- data.frame(table(obesity.data[[var]], obesity.data$NObeyesdad))
+  colnames(plot_data) <- c(var, "NObeyesdad", "Count")
+  plot_data$Percentage <- with(plot_data, Count / sum(Count) * 100)
+  
+  # Plot stacked bar chart
+  p <- ggplot(plot_data, aes(x = factor(get(var)), y = Percentage, fill = NObeyesdad)) +
+    geom_bar(stat = "identity", position = "fill") +
+    labs(x = var, y = "Percentage", title = paste("Stacked Bar Chart of", var, "and NObeyesdad")) +
+    theme_minimal() +
+    scale_fill_manual(values = c("Under_weight" = "purple", "Normal_Weight" = "yellow", "Pre-Obese" = "skyblue", "Obese" = "pink")) +
+    theme(legend.position = "bottom") +
+    guides(fill = guide_legend(title = "NObeyesdad"))
+  
+  # Display the plot
+  print(p)
+}
+```
+
+
+
+CHI-SQUARE TEST
+
+H0: There is no association between Obesity and family history with overweight.
+H1: There is a significant association between Obesity and family history with overweight.
+As p-value(2.2e-16) is less than the significant level, we reject null hypothesis and there is significant association between Obesity and family history with overweight.
+```{r}
+contingency_table1 = table(obesity.data$NObeyesdad, obesity.data$family_history_with_overweight)
+contingency_table1
+chi_square_test1 = chisq.test(obesity.data$NObeyesdad, obesity.data$family_history_with_overweight)
+chi_square_test1
+```
+
+```{r}
+library(ggplot2)
+```
+
+
+
+```{r}
+df_contingency <- as.data.frame.table(contingency_table1)
+
+ggplot(data = df_contingency, aes(x = Var2, y = Var1, fill = Freq)) +
+  geom_tile() +
+  scale_fill_gradient(low = "lightblue", high = "purple") +
+  labs(x = "family_history_with_overweight", y = "NObeyesdad") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+
+H0: Obesity is independent of the frequent consumption of high caloric food.
+H1: Obesity is dependent of the frequent consumption of high caloric food.
+As p-value(2.2e-16) is less than the significant level, we reject null hypothesis and there is significant association between Obesity and Frequent consumption of high caloric food.
+```{r}
+contingency_table2 = table(obesity.data$NObeyesdad, obesity.data$FAVC)
+contingency_table2
+chi_square_test2 = chisq.test(obesity.data$NObeyesdad, obesity.data$FAVC)
+chi_square_test2
+```
+
+```{r}
+df_contingency <- as.data.frame.table(contingency_table2)
+
+ggplot(data = df_contingency, aes(x = Var2, y = Var1, fill = Freq)) +
+  geom_tile() +
+  scale_fill_gradient(low = "lightpink", high = "blue") +
+  labs(x = "Frequent consumption of high caloric food", y = "NObeyesdad") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+H0: There is no association between Obesity and Frequency of consumption of vegetables.
+H1: There is a significant association between Obesity and Frequency of consumption of vegetables.
+As p-value(2.2e-16) is less than the significant level, we reject null hypothesis and there is significant association between Obesity and Frequency of consumption of vegetables.
+```{r}
+contingency_table3 = table(obesity.data$NObeyesdad, obesity.data$FCVC)
+contingency_table3
+chi_square_test3 = chisq.test(obesity.data$NObeyesdad, obesity.data$FCVC)
+chi_square_test3
+```
+
+```{r}
+df_contingency <- as.data.frame.table(contingency_table3)
+
+ggplot(data = df_contingency, aes(x = Var2, y = Var1, fill = Freq)) +
+  geom_tile() +
+  scale_fill_gradient(low = "lightblue", high = "purple") +
+  labs(x = "Frequency of consumption of vegetables", y = "NObeyesdad") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+H0: There is no association between Obesity and Number of main meals.
+H1: There is a significant association between Obesity and Number of main meals.
+As p-value(2.2e-16) is less than the significant level, we reject null hypothesis and there is significant association between Obesity and Number of main meals.
+```{r}
+
+contingency_table4 = table(obesity.data$NObeyesdad, obesity.data$NCP)
+contingency_table4
+chi_square_test4 = chisq.test(obesity.data$NObeyesdad, obesity.data$NCP)
+chi_square_test4
+```
+
+```{r}
+df_contingency <- as.data.frame.table(contingency_table4)
+
+ggplot(data = df_contingency, aes(x = Var2, y = Var1, fill = Freq)) +
+  geom_tile() +
+  scale_fill_gradient(low = "lightblue", high = "purple") +
+  labs(x = "Number of main meals", y = "NObeyesdad") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+H0: There is no association between Obesity and Consumption of food between meals.
+H1: There is a significant association between Obesity and Consumption of food between meals.
+As p-value(2.2e-16) is less than the significant level, we reject null hypothesis and there is significant association between Obesity and Consumption of food between meals.
+```{r}
+contingency_table5 = table(obesity.data$NObeyesdad, obesity.data$CAEC)
+contingency_table5
+chi_square_test5 = chisq.test(obesity.data$NObeyesdad, obesity.data$CAEC)
+chi_square_test5
+```
+
+
+```{r}
+df_contingency <- as.data.frame.table(contingency_table5)
+
+ggplot(data = df_contingency, aes(x = Var2, y = Var1, fill = Freq)) +
+  geom_tile() +
+  scale_fill_gradient(low = "lightyellow", high = "purple") +
+  labs(x = "Consumption of food between meals", y = "NObeyesdad") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+H0: There is no association between Obesity and smoking.
+H1: There is a significant association between Obesity and smoking.
+
+```{r}
+contingency_table6 = table(obesity.data$NObeyesdad, obesity.data$SMOKE)
+contingency_table6
+chi_square_test6 = chisq.test(obesity.data$NObeyesdad, obesity.data$SMOKE)
+chi_square_test6
+```
+
+```{r}
+df_contingency <- as.data.frame.table(contingency_table6)
+
+
+colnames(df_contingency) <- c("Obesity", "Smoke", "Frequency")
+
+# Create a stacked bar plot
+ggplot(df_contingency, aes(x = Obesity, y = Frequency, fill = Smoke)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Obesity Level", y = "Frequency", fill = "Smoking") +
+  theme_minimal() +
+  ggtitle("Association between Obesity and Smoking")
+```
+
+```{r}
+df_contingency <- as.data.frame.table(contingency_table6)
+
+ggplot(data = df_contingency, aes(x = Var2, y = Var1, fill = Freq)) +
+  geom_tile() +
+  scale_fill_gradient(low = "ivory", high = "pink") +
+  labs(x = "Smoking", y = "NObeyesdad") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+
+
+
+
+
+H0: There is no association between Obesity and Consumption of water daily.
+H1: There is a significant association between Obesity and Consumption of water daily.
+
+```{r}
+contingency_table7 = table(obesity.data$NObeyesdad, obesity.data$CH2O)
+contingency_table7
+chi_square_test7 = chisq.test(obesity.data$NObeyesdad, obesity.data$CH2O)
+chi_square_test7
+```
+
+
+```{r}
+df_contingency <- as.data.frame.table(contingency_table7)
+
+ggplot(data = df_contingency, aes(x = Var2, y = Var1, fill = Freq)) +
+  geom_tile() +
+  scale_fill_gradient(low = "lightyellow", high = "purple") +
+  labs(x = "Consumption of water daily", y = "NObeyesdad") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+H0: There is no association between Obesity and Calories consumption monitoring.
+H1: There is a significant association between Obesity and Calories consumption monitoring.
+
+```{r}
+contingency_table8 = table(obesity.data$NObeyesdad, obesity.data$SCC)
+contingency_table8
+chi_square_test8 = chisq.test(obesity.data$NObeyesdad, obesity.data$SCC)
+chi_square_test8
+```
+
+```{r}
+df_contingency <- as.data.frame.table(contingency_table8)
+
+ggplot(data = df_contingency, aes(x = Var2, y = Var1, fill = Freq)) +
+  geom_tile() +
+  scale_fill_gradient(low = "lightyellow", high = "purple") +
+  labs(x = "Calories consumption monitoring", y = "NObeyesdad") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+H0: There is no association between Obesity and Physical activity frequency.
+H1: There is a significant association between Obesity and Physical activity frequency.
+As p-value(2.2e-16) is less than the significant level, we reject null hypothesis and there is significant association between Obesity and Physical activity frequency.
+```{r}
+contingency_table9 = table(obesity.data$NObeyesdad, obesity.data$FAF)
+contingency_table9
+chi_square_test9 = chisq.test(obesity.data$NObeyesdad, obesity.data$FAF)
+chi_square_test9
+```
+
+
+```{r}
+df_contingency <- as.data.frame.table(contingency_table9)
+
+ggplot(data = df_contingency, aes(x = Var2, y = Var1, fill = Freq)) +
+  geom_tile() +
+  scale_fill_gradient(low = "lightgreen", high = "purple") +
+  labs(x = "Physical Activity frequency", y = "NObeyesdad") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+H0: There is no association between Obesity and Time using technology devices .
+H1: There is a significant association between Obesity and Time using technology devices .
+
+```{r}
+contingency_table10 = table(obesity.data$NObeyesdad, obesity.data$TUE)
+contingency_table10
+chi_square_test10 = chisq.test(obesity.data$NObeyesdad, obesity.data$TUE)
+chi_square_test10
+```
+
+
+```{r}
+df_contingency <- as.data.frame.table(contingency_table10)
+
+ggplot(data = df_contingency, aes(x = Var2, y = Var1, fill = Freq)) +
+  geom_tile() +
+  scale_fill_gradient(low = "ivory", high = "steelblue") +
+  labs(x = "Time using technology devices", y = "NObeyesdad") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+H0: There is no association between Obesity and Consumption of alcohol.
+H1: There is a significant association between Obesity and Consumption of alcohol.
+
+```{r}
+contingency_table11 <- table(obesity.data$NObeyesdad, obesity.data$CALC)
+
+
+fisher_test11 <- fisher.test(contingency_table11, simulate.p.value = TRUE)
+
+print(contingency_table11)
+
+print(fisher_test11)
+
+```
+
+
+
+```{r}
+df_contingency <- as.data.frame.table(contingency_table11)
+
+ggplot(data = df_contingency, aes(x = Var2, y = Var1, fill = Freq)) +
+  geom_tile() +
+  scale_fill_gradient(low = "lightblue", high = "purple") +
+  labs(x = "Consumption of alcohol", y = "NObeyesdad") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+H0: There is no association between Obesity and Transportation used.
+H1: There is a significant association between Obesity and Transportation used.
+
+
+
+
+```{r}
+result <- fisher.test(table(obesity.data$NObeyesdad, obesity.data$MTRANS), simulate.p.value = TRUE)
+
+print(result)
+
+```
+
+
+```{r}
+library(ggplot2)
+library(tidyr)
+
+contingency_table <- table(obesity.data$NObeyesdad, obesity.data$MTRANS)
+
+df_contingency <- as.data.frame.matrix(contingency_table)
+
+rownames(df_contingency) <- rownames(contingency_table)
+colnames(df_contingency) <- colnames(contingency_table)
+
+df_contingency$NObeyesdad <- rownames(df_contingency)
+
+df_melted <- gather(df_contingency, key = "MTRANS", value = "count", -NObeyesdad)
+
+ggplot(data = df_melted, aes(x = MTRANS, y = NObeyesdad, fill = count)) +
+  geom_tile() +
+  scale_fill_gradient(low = "ivory", high = "lightblue") +
+  labs(x = "Transportation used", y = "NObeyesdad", fill = "Count") +
+  theme_minimal() +
+  ggtitle("Heatmap of Association between Obesity and Mode of Transportation")
+
+```
+
+
+
+
+#ordinal logistic regression for transformed data set.
+
+```{r}
+# Install MASS package if not installed
+if (!requireNamespace("MASS", quietly = TRUE)) {
+  install.packages("MASS")
+}
+
+# Load the MASS package
+library(MASS)
+
+# Convert 'NObeyesdad' to a factor
+obesity.data$NObeyesdad <- factor(obesity.data$NObeyesdad)
+
+# Fit ordinal logistic regression model
+ordinal_model <- polr(NObeyesdad ~ ., data = obesity.data)
+summary(ordinal_model)
+
+```
+
+
+
+
+
+
+
+
+
+```{r}
+library(readr)
+my_data <- read_csv('original dataset.csv')
+```
+
+#from here we work with original datset
+
+```{r}
+library(readr)
+my_data <- read_csv("original dataset.csv")
+my_data
+```
+
+```{r}
+library(dplyr)
+
+
+my_data <- my_data %>%
+  mutate(NObeyesdad = ifelse(NObeyesdad %in% c("Overweight_Level_I", "Overweight_Level_II"), "pre_obese", NObeyesdad),
+         NObeyesdad = ifelse(NObeyesdad %in% c("Obesity_Type_I", "Obesity_Type_II", "Obesity_Type_III"), "obese", NObeyesdad))
+View(my_data)
+```
+
+
+
+```{r}
+install.packages("ggplot2")
+
+```
+```{r}
+library(ggplot2)
+
+```
+
+```{r}
+# Load ggplot2 package
+library(ggplot2)
+
+# Create a violin plot with a built-in color palette
+ggplot(my_data, aes(x = NObeyesdad, y = FCVC, fill = NObeyesdad)) +
+  geom_violin() +
+  labs(x = "Obesity Levels", y = "Frequency of Consuming Vegetables", 
+       title = "Violin Plot of Frequency of Consuming Vegetables by Obesity Levels") +
+  scale_fill_brewer(palette = "Set1")
+
+```
+
+
+
+
+
+
+```{r}
+# Load ggplot2 package
+library(ggplot2)
+
+# Create a violin plot with a built-in color palette
+ggplot(my_data, aes(x = NObeyesdad, y = NCP, fill = NObeyesdad)) +
+  geom_violin() +
+  labs(x = "Obesity Levels", y = "Frequency of consumption of main meals", 
+       title = "Violin Plot of Frequency of Consuming Main Meals by Obesity Levels") +
+  scale_fill_brewer(palette = "Set1")
+
+```
+```{r}
+# Load ggplot2 package
+library(ggplot2)
+
+# Create a violin plot with a built-in color palette
+ggplot(my_data, aes(x = NObeyesdad, y = CH2O, fill = NObeyesdad)) +
+  geom_violin() +
+  labs(x = "Obesity Levels", y = "Frequency of consumption of water", 
+       title = "Violin Plot of Frequency of consumption of water") +
+  scale_fill_brewer(palette = "Set1")
+
+```
+```{r}
+# Load ggplot2 package
+library(ggplot2)
+
+# Create a violin plot with a built-in color palette
+ggplot(my_data, aes(x = NObeyesdad, y = FAF, fill = NObeyesdad)) +
+  geom_violin() +
+  labs(x = "Obesity Levels", y = "Frequency of Physical activity", 
+       title = "Violin Plot of Frequency of Physical activity") +
+  scale_fill_brewer(palette = "Set1")
+
+```
+
+```{r}
+# Load ggplot2 package
+library(ggplot2)
+
+# Create a violin plot with a built-in color palette
+ggplot(my_data, aes(x = NObeyesdad, y = TUE, fill = NObeyesdad)) +
+  geom_violin() +
+  labs(x = "Obesity Levels", y = "Frequency of technology use", 
+       title = "Violin Plot of Frequency of technology use") +
+  scale_fill_brewer(palette = "Set1")
+
+```
+
+#convert obesity column to binary
+
+
+```{r}
+# NObeyesdad is the original categorical dependent variable representing obesity classification in our dataset
+# Create a new binary variable to indicate obese (1) and non-obese (0)
+# Assign 1 to categories representing obese individuals and 0 to all other categories
+data$new_binary_obesity <- ifelse(data$NObeyesdad %in% c("Obesity_Type_I", "Obesity_Type_II", "Obesity_Type_III"), 1, 0)
+
+# Replace the original dependent variable with the new binary variable in the dataset
+#df$obese_binary <- new_binary_obesity
+
+# Remove the original dependent variable from the dataset if needed
+#df <- subset(df, select = -c(NObeyesdad))
+View(data)
+```
+
+
+#density plot for numerical varaiables
+
+
+```{r}
+library(ggplot2)
+
+# Create conditional density plots for each continuous variable conditioned on the binary outcome
+conditional_plots <- lapply(c("Weight", "FCVC", "NCP", "CH2O", "FAF", "TUE"), function(var) {
+  ggplot(my_data, aes_string(x = var, fill = factor(new_binary_obesity))) +
+    geom_density(alpha = 0.5) +
+    labs(title = paste("Conditional Density Plot for", var),
+         x = var,
+         y = "Density") +
+    theme_minimal()
+})
+
+# Plot the conditional density plots
+gridExtra::grid.arrange(grobs = conditional_plots, ncol = 2)
+
+```
+```{r}
+# Create the binary variable based on the NObeyesdad variable
+my_data$obese_binary <- ifelse(my_data$NObeyesdad %in% c("pre"), 1, 0)
+
+# Check if the binary variable is correctly created
+head(my_data$obese_binary)
+
+# Now, create conditional density plots for each continuous variable conditioned on the binary outcome
+conditional_plots <- lapply(c("Weight", "FCVC", "NCP", "CH2O", "FAF", "TUE"), function(var) {
+  ggplot(my_data, aes_string(x = var, fill = factor(obese_binary))) +
+    geom_density(alpha = 0.5) +
+    labs(title = paste("Conditional Density Plot for", var),
+         x = var,
+         y = "Density") +
+    theme_minimal()
+})
+
+# Plot the conditional density plots
+gridExtra::grid.arrange(grobs = conditional_plots, ncol = 2)
+
+```
+
+#box plots to check association between categorical and binary dependent varaible
+```{r}
+# Load required libraries
+library(ggplot2)
+
+# Create boxplots for categorical variables against the binary outcome variable
+# Family history with overweight
+ggplot(my_data, aes(x = family_history_with_overweight, y = )) +
+  geom_boxplot() +
+  labs(x = "Family history with overweight", y = "new_binary_obesity")
+
+# FAVC (Frequency of consumption of high caloric food)
+ggplot(my_data, aes(x = FAVC, y = new_binary_obesity)) +
+  geom_boxplot() +
+  labs(x = "FAVC", y = "Obese Binary")
+
+# CAEC (Consumption of food between meals)
+ggplot(my_data, aes(x = CAEC, y = new_binary_obesity)) +
+  geom_boxplot() +
+  labs(x = "CAEC", y = "Obese Binary")
+
+# SMOKE
+ggplot(my_data, aes(x = SMOKE, y = new_binary_obesity)) +
+  geom_boxplot() +
+  labs(x = "SMOKE", y = "Obese Binary")
+
+# SCC (Calories consumption monitoring)
+ggplot(my_data, aes(x = SCC, y = new_binary_obesity)) +
+  geom_boxplot() +
+  labs(x = "SCC", y = "Obese Binary")
+
+# MTRANS (Transportation used)
+ggplot(my_data, aes(x = MTRANS, y = new_binary_obesity)) +
+  geom_boxplot() +
+  labs(x = "MTRANS", y = "Obese Binary")
+
+```
+
+
+
+
+#logitic regression model
+
+
+```{r}
+library(readr)
+data <- read_csv("original dataset.csv")
+View(data)
+```
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+# NObeyesdad is the original categorical dependent variable representing obesity classification in our dataset
+# Create a new binary variable to indicate obese (1) and non-obese (0)
+# Assign 1 to categories representing obese individuals and 0 to all other categories
+data$new_binary_obesity <- ifelse(data$NObeyesdad %in% c("Obesity_Type_I", "Obesity_Type_II", "Obesity_Type_III"), 1, 0)
+
+# Replace the original dependent variable with the new binary variable in the dataset
+#df$obese_binary <- new_binary_obesity
+
+# Remove the original dependent variable from the dataset if needed
+#df <- subset(df, select = -c(NObeyesdad))
+View(data)
+```
+
+
+```{r}
+# Fit logistic regression model
+model <- glm(new_binary_obesity ~ Gender + Age + Height + Weight + family_history_with_overweight + FAVC + FCVC + NCP + CAEC + SMOKE + CH2O + SCC + FAF + TUE + CALC + MTRANS,
+             data = data, family = binomial(link = "logit"))
+
+# Display summary of the model
+summary <- summary(model)
+
+```
+
+
+
+```{r}
+# Now 'data' is our dataframe with the binary dependent variable 'new_binary_obesity' and predictor variables 
+
+# Fit logistic regression model
+model <- glm(new_binary_obesity ~ Gender + Age + Height + Weight + family_history_with_overweight + FAVC + FCVC + NCP + CAEC + SMOKE + CH2O + SCC + FAF + TUE + CALC + MTRANS, data = data, family = binomial)
+
+# Summarize the model
+summary(model)
+
+# We can plot diagnostic plots to assess the model fit
+plot(model)
+
+```
+
+
+#odds ratio
+
+```{r}
+coefficients <- glm(new_binary_obesity ~ Gender + Age + Height + Weight + family_history_with_overweight + FAVC + FCVC + NCP + CAEC + SMOKE + CH2O + SCC + FAF + TUE + CALC + MTRANS, data = data, family = binomial(link = "logit"))$coef
+
+#standard_errors <- summary$coefficients
+
+# Calculate odds ratios
+odds_ratios <- exp(coefficients)
+
+
+results <- data.frame(
+  Variable = names(coefficients),odds_ratios
+)
+
+# Print results
+print(results)
+```
+
+```{r}
+# Load necessary libraries if not already loaded
+# install.packages("tidyverse") # if you haven't installed it yet
+library(tidyverse)
+
+# Assuming your data is stored in a dataframe called df
+# and your dependent variable is named new_binary_obesity
+# and independent variables are Age, family_history_with_overweight, FAVC, SMOKE, SCC, FAF, MTRANS
+
+# Univariate logistic regression for Age
+model_age <- glm(new_binary_obesity ~ Age, data = data, family = "binomial")
+summary(model_age)
+
+# Univariate logistic regression for family_history_with_overweight
+model_family_history <- glm(new_binary_obesity ~ family_history_with_overweight, data = data, family = "binomial")
+summary(model_family_history)
+
+# Univariate logistic regression for FAVC
+model_FAVC <- glm(new_binary_obesity ~ FAVC, data = data, family = "binomial")
+summary(model_FAVC)
+
+# Univariate logistic regression for SMOKE
+model_SMOKE <- glm(new_binary_obesity ~ SMOKE, data = data, family = "binomial")
+summary(model_SMOKE)
+
+# Univariate logistic regression for SCC
+model_SCC <- glm(new_binary_obesity ~ SCC, data = data, family = "binomial")
+summary(model_SCC)
+
+# Univariate logistic regression for FAF
+model_FAF <- glm(new_binary_obesity ~ FAF, data = data, family = "binomial")
+summary(model_FAF)
+
+# Univariate logistic regression for MTRANS
+model_MTRANS <- glm(new_binary_obesity ~ MTRANS, data = data, family = "binomial")
+summary(model_MTRANS)
+
+```
+
+
+#new logistic regression model using the variables that showed association with outcome varaible.
+
+```{r}
+model2 <- glm(new_binary_obesity ~   Age + family_history_with_overweight + FAVC + SMOKE + SCC + FAF + MTRANS,
+             data = data, family = binomial(link = "logit"))
+
+# Display summary of the model
+summary <- summary(model2)
+summary
+```
+
+#predicitve probability
+
+```{r}
+# Assuming your model is named model2
+
+# Predictive probabilities for the training data
+predicted_probabilities <- predict(model2, type = "response")
+
+# Adding predicted probabilities to your original dataset
+data$predicted_probabilities <- predicted_probabilities
+
+# View the predicted probabilities
+head(data$predicted_probabilities)
+
+```
+
+
+
+
+```{r}
+coefficients <- glm(new_binary_obesity ~   Age + family_history_with_overweight + FAVC + SMOKE + SCC + FAF + MTRANS,
+             data = data, family = binomial(link = "logit"))$coef
+
+#standard_errors <- summary$coefficients
+
+# Calculate odds ratios
+odds_ratios <- exp(coefficients)
+
+
+results <- data.frame(
+  Variable = names(coefficients),odds_ratios
+)
+
+# Print results
+print(results)
+```
+
+
+
+```{r}
+library(ggplot2)
+
+# Sort the results dataframe by odds ratios
+results <- results[order(results$odds_ratios, decreasing = TRUE), ]
+
+# Calculate confidence intervals
+results$ci_upper <- results$odds_ratios + 1.96 * sqrt((1 / results$odds_ratios) * (1 - 1 / results$odds_ratios))
+results$ci_lower <- results$odds_ratios - 1.96 * sqrt((1 / results$odds_ratios) * (1 - 1 / results$odds_ratios))
+
+# Create a forest plot
+ggplot(results, aes(x = odds_ratios, y = Variable)) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "gray") +
+  geom_point(size = 3, color = "blue") +
+  geom_errorbarh(aes(xmin = 1 / ci_upper, xmax = ci_upper), height = 0) +
+  scale_x_continuous(trans = "log", breaks = c(0.1, 0.5, 1, 2, 5, 10)) +
+  labs(x = "Odds Ratio (log scale)", y = NULL, title = "Forest Plot of Odds Ratios") +
+  theme_minimal()
+
+
+```
+
+
+
